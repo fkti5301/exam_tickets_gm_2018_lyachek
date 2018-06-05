@@ -10,7 +10,7 @@
 
 3. Клонировать к себе данный репозиторий:
    ```
-   git clone git@github.com:fkti5301/exam_base.git
+   git clone git@github.com:fkti5301/exam_tickets-gm_2018_lyachek.git
    ```
 
 
