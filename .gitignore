@@ -1,0 +1,24 @@
+### Node rules:
+.grunt
+
+### Dependency directory
+node_modules
+
+### Book build output
+_book
+
+### eBook build output
+*.epub
+*.mobi
+*.pdf
+
+### Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+Session.vim
+.netrwhist
+*~
+tags
+[._]*.un~
