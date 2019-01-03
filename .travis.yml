@@ -1,0 +1,48 @@
+language: node_js
+sudo: required
+
+cache:
+  - npm
+
+node_js:
+  - "9"
+
+branches:
+  only:
+    - master
+
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y calibre
+  # Dirty hack to make gitbook's pdf generation work on a headless server
+  - sudo mv ebook-convert /usr/local/bin/
+
+install:
+  - npm install gitbook-cli -g
+  - gitbook install
+
+script:
+  - cd ./ && gitbook build && gitbook pdf
+
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name "Deligor"
+  - git config --local user.email "deligor6321@gmail.com"
+  - export TRAVIS_TAG=pdf-release-v${TRAVIS_BUILD_NUMBER}
+  - git tag -f ${TRAVIS_TAG}
+
+deploy:
+  - provider: pages
+    skip-cleanup: true
+    github-token: $GITHUB_TOKEN
+    local-dir: ./_book
+    keep-history: false
+    on:
+      branch: master
+  - provider: releases
+    api_key: $GITHUB_TOKEN
+    file: ./book.pdf
+    skip_cleanup: true
+    overwrite: true
+    on:
+      branch: master
